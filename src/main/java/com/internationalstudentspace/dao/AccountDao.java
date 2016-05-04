@@ -182,5 +182,20 @@ public class AccountDao {
             e.printStackTrace();
         }  
         return list;  
-    }  
+    }
+
+    /**
+     * helper method to validate credential
+     * 
+     * @return true in case if the credential is valid, false otherwise.
+     */
+    public static boolean validateCredential(String userName, String password){  
+        List<Accounts> accountList = getAllAccounts();
+        for (Accounts account : accountList) {
+            if (account.getUserName().equals(userName) && account.getPassword().equals(password)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }  

@@ -1,6 +1,7 @@
 package main.java.com.internationalstudentspace.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,10 +13,10 @@ import main.java.com.internationalstudentspace.bean.Accounts;
 import main.java.com.internationalstudentspace.dao.AccountDao;
 
 /**
- * Servlet implementation class CreateAccount
+ * Servlet implementation class LogIn
  */
-@WebServlet("/CreateAccount")
-public class CreateAccount extends HttpServlet {
+@WebServlet("/LogIn")
+public class LogIn extends HttpServlet {
     /**
      * the serial version id
      */
@@ -24,7 +25,7 @@ public class CreateAccount extends HttpServlet {
     /**
      * the constructor
      */
-    public CreateAccount() {
+    public LogIn() {
         super();
     }
 
@@ -36,7 +37,7 @@ public class CreateAccount extends HttpServlet {
 	 * @throws Exception in case of any exception
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    request.getRequestDispatcher("/WEB-INF/jsp/CreateAccount.html").forward(request, response);
+	    request.getRequestDispatcher("/WEB-INF/jsp/LogIn.html").forward(request, response);
 	}
 
 	/**
@@ -50,23 +51,14 @@ public class CreateAccount extends HttpServlet {
 		response.setContentType("text/html");  
         String userName = request.getParameter("userName");  
         String password = request.getParameter("password");
-        String phoneNumber =request.getParameter("phoneNumber");
-        String email = request.getParameter("email");  
-        String country = request.getParameter("country");  
-
-        Accounts accounts = new Accounts();  
-        accounts.setUserName(userName);
-        accounts.setPassword(password); 
-        accounts.setPhoneNumber(phoneNumber);
-        accounts.setEmail(email);  
-        accounts.setCountry(country);  
-
-        int status = AccountDao.save(accounts); 
         
-        if(status>0){  
-            request.getRequestDispatcher("/WEB-INF/jsp/DashBoard.html").forward(request, response); 
-        }else{  
-            response.sendRedirect("/CreateAccount");  
-        }  
+        PrintWriter out=response.getWriter();  
+        if (AccountDao.validateCredential(userName, password)) {
+            request.getSession().setAttribute("userName", userName);
+            out.println("Logged In successfully...!!! ");  
+        } else {
+            out.println("Not logged in");  
+        }
+//        response.sendRedirect("/CreateAccount");  
     }  
 }
