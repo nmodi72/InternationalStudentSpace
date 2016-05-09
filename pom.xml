@@ -26,22 +26,29 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<properties>
+        <version.servlet>3.0.1</version.servlet>
+        <version.lombok>1.16.8</version.lombok>
+        <version.mysql.connector>5.0.8</version.mysql.connector>
+    </properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
-			<version>3.0.1</version>
+			<version>${version.servlet}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.16.8</version>
+			<version>${version.lombok}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.0.8</version>
+			<version>${version.mysql.connector}</version>
 		</dependency>
 	</dependencies>
 </project>
