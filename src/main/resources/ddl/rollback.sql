@@ -1,0 +1,4 @@
+drop table DOM_ISS.T_ISS_ACCT_USR;
+drop table DOM_ISS.T_ISS_ACCT_USR_DTL;
+drop table DOM_ISS.T_ISS_USR_EMAIL_TBL_ID;
+drop table DOM_ISS.T_ISS_USR_TPH_TBL_ID;
