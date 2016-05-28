@@ -29,7 +29,7 @@ public class DashBoard extends HttpServlet {
     }
 
 	/**
-	 * Get implementation for create account
+	 * Get implementation for dash board
 	 * 
 	 * @param request the Http servlet request
 	 * @param response the Http servlet response
@@ -40,34 +40,33 @@ public class DashBoard extends HttpServlet {
 	}
 
 	/**
-     * Post implementation for create account
+     * Post implementation for dash board
      *
      * @param request the Http servlet request
      * @param response the Http servlet response
      * @throws Exception in case of any exception
      */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/html");  
-        String userName = request.getParameter("userName");  
-        String password = request.getParameter("password");
-        String phoneNumber =request.getParameter("phoneNumber");
-        String email = request.getParameter("email");  
-        String country = request.getParameter("country");  
-
-        Accounts accounts = new Accounts();  
-        accounts.setUserName(userName);
-        accounts.setPassword(password); 
-        accounts.setPhoneNumber(phoneNumber);
-        accounts.setEmail(email);  
-        accounts.setCountry(country);  
-
-        int status = AccountDao.save(accounts); 
-        
-        if(status>0){
-            response.sendRedirect("/CreateAccount");
-            request.getRequestDispatcher("/WEB-INF/jsp/DashBoard.html").forward(request, response); 
-        }else{  
-            response.sendRedirect("/CreateAccount");  
-        }  
+//		response.setContentType("text/html");  
+//        String userName = request.getParameter("userName");  
+//        String password = request.getParameter("password");
+//        String phoneNumber =request.getParameter("phoneNumber");
+//        String email = request.getParameter("email");  
+//        String country = request.getParameter("country");  
+//
+//        Accounts accounts = new Accounts();  
+//        accounts.setUserName(userName);
+//        accounts.setPassword(password); 
+//        accounts.setPhoneNumber(phoneNumber);
+//        accounts.setEmail(email);  
+//        accounts.setCountry(country);  
+//
+//        int status = AccountDao.save(accounts); 
+//        
+//        if(status>0){
+//            request.getRequestDispatcher("/WEB-INF/jsp/DashBoard.html").forward(request, response); 
+//        }else{  
+//            response.sendRedirect("/CreateAccount");  
+//        }  
     }  
 }

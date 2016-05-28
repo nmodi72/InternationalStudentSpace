@@ -1,7 +1,6 @@
 package main.java.com.internationalstudentspace.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import main.java.com.internationalstudentspace.dao.AccountDao;
+import main.java.com.internationalstudentspace.dao.ValidateAccountDao;
+
 
 /**
  * Servlet implementation class LogIn
@@ -51,13 +51,11 @@ public class LogIn extends HttpServlet {
         String userName = request.getParameter("userName");  
         String password = request.getParameter("password");
         
-        PrintWriter out=response.getWriter();  
-        if (AccountDao.validateCredential(userName, password)) {
+        if (ValidateAccountDao.validateCredential(userName, password)) {
             request.getSession().setAttribute("userName", userName);
-            response.sendRedirect("/DashBoard");  
+            response.sendRedirect("DashBoard");  
         } else {
-            out.println("Not logged in");  
+            doGet(request, response);
         }
-//        response.sendRedirect("/CreateAccount");  
     }  
 }

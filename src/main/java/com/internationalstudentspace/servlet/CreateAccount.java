@@ -8,8 +8,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import main.java.com.internationalstudentspace.bean.Account;
 import main.java.com.internationalstudentspace.bean.Accounts;
+import main.java.com.internationalstudentspace.bean.Email;
+import main.java.com.internationalstudentspace.bean.Telephone;
+import main.java.com.internationalstudentspace.bean.UserDetail;
 import main.java.com.internationalstudentspace.dao.AccountDao;
+import main.java.com.internationalstudentspace.dao.CreateNewAccountDao;
 
 /**
  * Servlet implementation class CreateAccount
@@ -50,23 +55,47 @@ public class CreateAccount extends HttpServlet {
 		response.setContentType("text/html");  
         String userName = request.getParameter("userName");  
         String password = request.getParameter("password");
-        String phoneNumber =request.getParameter("phoneNumber");
-        String email = request.getParameter("email");  
-        String country = request.getParameter("country");  
-
-        Accounts accounts = new Accounts();  
-        accounts.setUserName(userName);
-        accounts.setPassword(password); 
-        accounts.setPhoneNumber(phoneNumber);
-        accounts.setEmail(email);  
-        accounts.setCountry(country);  
-
-        int status = AccountDao.save(accounts); 
         
-        if(status>0){  
-            request.getRequestDispatcher("/WEB-INF/jsp/DashBoard.html").forward(request, response); 
-        }else{  
-            response.sendRedirect("/CreateAccount");  
+        String firstName = request.getParameter("firstName");
+        String middleName = request.getParameter("middleName");
+        String lastName = request.getParameter("lastName");
+        String addressLine1 = request.getParameter("addressLine1");
+        String addressLine2 = request.getParameter("addressLine2");
+        String zipCode = request.getParameter("zipCode");
+        String country = request.getParameter("country");
+        String telephoneNumber = request.getParameter("telephone");
+        String emailId = request.getParameter("email");  
+
+        Telephone telephone = new Telephone();
+        telephone.setTelephone(telephoneNumber);
+        telephone.setIsValid(Boolean.FALSE);
+
+        Email email = new Email();
+        email.setEmailId(emailId);
+        email.setIsValid(Boolean.FALSE);
+
+        UserDetail userDetail = new UserDetail();
+        userDetail.setFirstName(firstName);
+        userDetail.setMiddleName(middleName);
+        userDetail.setLastName(lastName);
+        userDetail.setAddressLine1(addressLine1);
+        userDetail.setAddressLine2(addressLine2);
+        userDetail.setZipCode(zipCode);
+        userDetail.setCountry(country);
+        userDetail.setTelephone(telephone);
+        userDetail.setEmail(email);
+
+        Account account = new Account();
+        account.setUserName(userName);
+        account.setPassword(password);
+        account.setUserdetail(userDetail);
+
+        int status = CreateNewAccountDao.createAccount(account); 
+        
+        if (status > 0) {  
+            response.sendRedirect("HomePage");  
+        } else {  
+            response.sendRedirect("CreateAccount");  
         }  
     }  
 }

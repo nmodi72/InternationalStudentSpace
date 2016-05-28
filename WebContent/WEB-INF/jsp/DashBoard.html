@@ -5,9 +5,66 @@
 <title>Dash Board</title>
 </head>
 <body>
-<p>DashBoard</p>
-    <a href="ViewServlet">View Accounts</a> -->
+<p>Dash Board</p>
+    <a href="DashBoard">View Accounts</a> -->
 
+	<h3>Plan GRE</h3>
+	<form action="PlanTest" method="post">
+	   <input type="hidden" name="testName" value="GRE">
+		<table>
+			<tr>
+				<td>semester - year</td>
+				<td><input type="text" name="semester" /></td>
+				<td><input type="text" name="year" /></td>
+			</tr>
+			<tr>
+                <td>Country, PostalCode</td>
+                <td><input type="text" name="country" /></td>
+                <td><input type="text" name="postalCode" /></td>
+            </tr>
+			<tr>
+				<td colspan="2"><input type="submit" value="Submit" /></td>
+			</tr>
+		</table>
+	</form>
 
+    <h3>Plan TOEFL</h3>
+    <form action="PlanTest" method="post">
+       <input type="hidden" name="testName" value="TOEFL">
+        <table>
+            <tr>
+                <td>semester - year</td>
+                <td><input type="text" name="semester" /></td>
+                <td><input type="text" name="year" /></td>
+            </tr>
+            <tr>
+                <td>Country, PostalCode</td>
+                <td><input type="text" name="country" /></td>
+                <td><input type="text" name="postalCode" /></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" value="Submit" /></td>
+            </tr>
+        </table>
+    </form>
+    <h3>Plan IELTS</h3>
+    <form action="PlanTest" method="post">
+       <input type="hidden" name="testName" value="IELTS">
+        <table>
+            <tr>
+                <td>semester - year</td>
+                <td><input type="text" name="semester" /></td>
+                <td><input type="text" name="year" /></td>
+            </tr>
+            <tr>
+                <td>Country, PostalCode</td>
+                <td><input type="text" name="country" /></td>
+                <td><input type="text" name="postalCode" /></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" value="Submit" /></td>
+            </tr>
+        </table>
+    </form>
 </body>
 </html>
