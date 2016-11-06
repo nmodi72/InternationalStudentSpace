@@ -47,8 +47,7 @@ public class DashBoard extends HttpServlet {
      * @throws Exception in case of any exception
      */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		response.setContentType("text/html");  
-//        String userName = request.getParameter("userName");  
+//        String userName = request.getParameter("userName");
 //        String password = request.getParameter("password");
 //        String phoneNumber =request.getParameter("phoneNumber");
 //        String email = request.getParameter("email");  

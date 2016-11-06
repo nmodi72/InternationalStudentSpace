@@ -40,7 +40,7 @@ public class SendMailDaoTest {
         planNotificationEmail.setTimeStamp(currentTimestamp.toString());
         planNotificationEmail.setUserEmail("hiten.gajjar@gmail.com");
         try {
-            SendMailDao.sendTestPlanNotificationMail(EMAIL_RECIPIENT, planNotificationEmail, ATTCHMENT);
+//            SendMailDao.sendTestPlanNotificationMail(EMAIL_RECIPIENT, planNotificationEmail, ATTCHMENT);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -61,7 +61,7 @@ public class SendMailDaoTest {
         planNotificationEmail.setTimeStamp(currentTimestamp.toString());
         planNotificationEmail.setUserEmail("hiten.gajjar@gmail.com");
         try {
-            SendMailDao.sendTestPlanNotificationMail(EMAIL_RECIPIENT, planNotificationEmail, ATTCHMENT);
+//            SendMailDao.sendTestPlanNotificationMail(EMAIL_RECIPIENT, planNotificationEmail, ATTCHMENT);
         } catch (Exception e) {
             e.printStackTrace();
         }

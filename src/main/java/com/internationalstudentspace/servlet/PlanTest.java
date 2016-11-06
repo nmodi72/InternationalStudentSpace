@@ -2,6 +2,7 @@ package main.java.com.internationalstudentspace.servlet;
 
 import java.io.IOException;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -65,10 +66,10 @@ public class PlanTest extends HttpServlet {
         planNotificationEmail.setYear(year);
         planNotificationEmail.setTimeStamp("Just Now");
         planNotificationEmail.setUserEmail("hiten.gajjar@gmail.com");
-        
+        ServletContext context = this.getServletContext();
         
         try {
-            SendMailDao.sendTestPlanNotificationMail("internationalstudentspace@gmail.com", planNotificationEmail, null);
+            SendMailDao.sendTestPlanNotificationMail("internationalstudentspace@gmail.com", planNotificationEmail, null, context);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

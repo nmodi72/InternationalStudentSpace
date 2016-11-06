@@ -33,7 +33,6 @@ public class GetAccountDaoTest {
     public void testGetAllAccount() {
         List<Account> accounts = GetAccountDao.getAllAccounts();
 
-        Assert.assertEquals(accounts.size(), 1);
         for (Account account : accounts) {
             Assert.assertNotNull(account.getUserName());
             Assert.assertNotNull(account.getPassword());

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.HashMap;
@@ -25,7 +26,10 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.servlet.ServletContext;
 
+import freemarker.cache.FileTemplateLoader;
+import freemarker.cache.WebappTemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import main.java.com.internationalstudentspace.bean.PlanNotificationEmail;
@@ -35,12 +39,11 @@ public class SendMailDao {
     /**
      * The smtp property file path
      */
-    private final static String SMTP_PROPERTIES_FILE_PATH = "src/main/resource/utils/smtpSettings.properties";
-
+    private final static String SMTP_PROPERTIES_FILE_PATH = "smtpSettings.properties";
     /**
-     * The ftl file path
+     * The ftl file name
      */
-    private final static String FTL_FILE_PATH = "src/main/resource/freemarker/emailFormat.ftl";
+    private final static String FTL_FILE_NAME = "emailFormat.ftl";
 
     /**
      * The email id of the account
@@ -60,9 +63,8 @@ public class SendMailDao {
      * @param attachment the attachment path
      * @throws Exception, In case of exception.
      */
-    public static void sendTestPlanNotificationMail(String recipientEmailId, PlanNotificationEmail planNotificationEmail, String attachment) throws Exception {
+    public static void sendTestPlanNotificationMail(String recipientEmailId, PlanNotificationEmail planNotificationEmail, String attachment, ServletContext context) throws Exception {
         String mailSubject = "Help Request from : ".concat(planNotificationEmail.getUserName());
-
         Map<String, String> mailContents = new HashMap<String, String>();
         mailContents.put(Constants.RECIPIENT_NAME, planNotificationEmail.getRecipientName());
         mailContents.put(Constants.USER_NAME, planNotificationEmail.getUserName());
@@ -73,7 +75,7 @@ public class SendMailDao {
         mailContents.put(Constants.CURRENT_TIMESTAMP, planNotificationEmail.getTimeStamp());
         mailContents.put(Constants.USER_EMAIL, planNotificationEmail.getUserEmail());
 
-        sendEmail(FTL_FILE_PATH, recipientEmailId, mailSubject, mailContents, attachment);
+        sendEmail(FTL_FILE_NAME, recipientEmailId, mailSubject, mailContents, attachment, context);
     }
 
     /**
@@ -81,15 +83,17 @@ public class SendMailDao {
      * 
      * @throws Exception, In case of exception.
      */
-    private static void sendEmail(String templatePath, String recipientEmailId, String mailSubject, Map<String, String> mailContents, String attachment) throws Exception {
-        Session session = getSmtpSession();
+    private static void sendEmail(String templatePath, String recipientEmailId, String mailSubject, Map<String, String> mailContents, String attachment, ServletContext context) throws Exception {
+        Session session = getSmtpSession(context);
         try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(EMAIL_ID));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientEmailId));
             message.setSubject(mailSubject);
             Configuration configuration = new Configuration();
-            Template template = configuration.getTemplate(templatePath);
+//            FileTemplateLoader templateLoader = new FileTemplateLoader(new File("WEB-INF/"));
+            configuration.setTemplateLoader(new WebappTemplateLoader(context, "WEB-INF/"));
+            Template template = configuration.getTemplate(FTL_FILE_NAME);
             Writer out = new StringWriter();
             template.process(mailContents, out);
             BodyPart body = new MimeBodyPart();
@@ -129,10 +133,11 @@ public class SendMailDao {
      * 
      * @throws Exception, In case of exception.
      */
-    private static Session getSmtpSession() {
+    private static Session getSmtpSession(ServletContext context) {
         Properties props = new Properties();
         try {
-            props.load(new FileInputStream(new File(SMTP_PROPERTIES_FILE_PATH)));
+            String propertiesFilePath = context.getRealPath(SMTP_PROPERTIES_FILE_PATH);
+            props.load(new FileInputStream(new File(propertiesFilePath)));
         } catch (FileNotFoundException e1) {
             e1.printStackTrace();
         } catch (IOException e1) {
