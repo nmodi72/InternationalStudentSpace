@@ -30,7 +30,7 @@
 	<properties>
         <version.servlet>3.0.1</version.servlet>
         <version.lombok>1.16.8</version.lombok>
-        <version.mysql.connector>5.0.8</version.mysql.connector>
+        <version.mysql.connector>8.0.16</version.mysql.connector>
     </properties>
 
 	<dependencies>
